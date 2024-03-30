@@ -1,0 +1,35 @@
+# Bytecode-filer som genereras av Python
+__pycache__/
+*.pyc
+
+# Virtuella miljöer
+venv/
+.env
+
+# IDE-specifika filer och mappar (t.ex. för PyCharm, VSCode)
+.idea/
+.vscode/
+*.swp
+
+# Loggfiler och databasfiler
+*.log
+*.sqlite
+
+# Systemspecifika filer
+.DS_Store
+Thumbs.db
+
+# Känsliga filer eller filer med hemligheter
+config.py
+
+# Övriga filer som inte bör versionshanteras
+*.csv
+*.xls
+*.xlsx
+
+# Temporära filer
+*.tmp
+*.bak
+
+# Node.js paket (om du använder det i ditt projekt)
+node_modules/

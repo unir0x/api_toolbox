@@ -1,0 +1,16 @@
+.git/
+.gitignore
+.DS_Store
+__pycache__/
+*.pyc
+venv/
+.env
+.idea/
+.vscode/
+*.log
+node_modules/
+*.csv
+*.xls
+*.xlsx
+*.tmp
+*.bak
