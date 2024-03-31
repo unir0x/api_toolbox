@@ -19,12 +19,12 @@ Important to change the username and password in the APP_CREDENTIALS environment
 
 Base64 Encoding
 ---
-|Endpoint: |/toBase64
-|Method: |POST
-|Description: |Submit a file and its filename to get the file's contents encoded in Base64.
-|Formdata:
-|file: |The file to be encoded.
-|filename: |The name of the file being uploaded.
+| Endpoint: | /toBase64 |
+| Method: | POST |
+| Description: |Submit a file and its filename to get the file's contents encoded in Base64. |
+| Formdata: |
+| file: |T he file to be encoded. |
+| filename: | The name of the file being uploaded. |
 
 CSV to XLSX Conversion
 ---
