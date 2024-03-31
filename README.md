@@ -41,6 +41,6 @@ create_table: To choose if the xlsx file will creat an table. (True or False)
 
 Swagger UI
 ----------
-For a more detailed overview of the API and to test its endpoints, navigate to the Swagger UI at http://<your.domain>/swagger/ after starting the server.
+For a more detailed overview of the API and to test its endpoints, navigate to the Swagger UI at (http://<your.domain>/swagger/) after starting the server.
 
 
