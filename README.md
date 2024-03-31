@@ -20,6 +20,7 @@ Important to change the username and password in the APP_CREDENTIALS environment
 Base64 Encoding
 ---
 | Endpoint: | /toBase64 |
+|-----------------------|
 | Method: | POST |
 | Description: |Submit a file and its filename to get the file's contents encoded in Base64. |
 | Formdata: |
