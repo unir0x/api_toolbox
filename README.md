@@ -13,7 +13,6 @@ CSV to XLSX Conversion: Converts CSV files with semicolon separators to XLSX for
 Authentication
 This API requires basic authentication. Username and password must be included in every request.
 
-**ATTENTION!**
 > [!IMPORTANT]
 Important to change the username and password in the APP_CREDENTIALS environment variables used for API requests.
 
@@ -40,3 +39,5 @@ create_table: To choose if the xlsx file will creat an table. (True or False)
 Swagger UI
 ----------
 For a more detailed overview of the API and to test its endpoints, navigate to the Swagger UI at http://<your.domain>/swagger/ after starting the server.
+
+[^1]: Created by unirox 2024.
