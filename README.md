@@ -40,4 +40,4 @@ Swagger UI
 ----------
 For a more detailed overview of the API and to test its endpoints, navigate to the Swagger UI at http://<your.domain>/swagger/ after starting the server.
 
-[^1]: Created by unirox 2024.
+Here is a simple footnote[^1]
