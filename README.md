@@ -35,7 +35,7 @@ Endpoint: /csv2xls
 Method: POST
 Description: Submit a CSV file to convert it to XLSX format.
 Formdata:
-file: The CSV file to be converted.
+bizDoc: The CSV file to be converted.
 create_table: To choose if the xlsx file will creat an table. (True or False)
 ```
 
