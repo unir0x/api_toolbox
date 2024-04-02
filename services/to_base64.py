@@ -7,7 +7,7 @@ ns = Namespace('toBase64', description='Base64 operations')
 
 parser = reqparse.RequestParser()
 parser.add_argument('bizDoc', location='files', type=FileStorage, required=True, help='The file to upload')
-parser.add_argument('filename', location='form', type=str, required=True, help='Name of the file being uploaded')
+parser.add_argument('filename', location='form', type=str, required=False, help='Name of the file being uploaded')
 
 @ns.route('')
 class Base64Converter(Resource):
