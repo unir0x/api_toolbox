@@ -24,7 +24,7 @@ Endpoint: /toBase64
 Method: POST
 Description: Submit a file and its filename to get the file's contents encoded in Base64.
 Formdata:
-file: The file to be encoded.
+bizDoc: The file to be encoded.
 filename: The name of the file being uploaded.
 ```
 
@@ -35,7 +35,7 @@ Endpoint: /csv2xls
 Method: POST
 Description: Submit a CSV file to convert it to XLSX format.
 Formdata:
-bizDoc: The CSV file to be converted.
+file: The CSV file to be converted.
 create_table: To choose if the xlsx file will creat an table. (True or False)
 ```
 
