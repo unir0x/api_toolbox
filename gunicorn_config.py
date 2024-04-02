@@ -27,7 +27,7 @@ def ensure_logfile_directory_exists(path):
     # Säkerställer att mappen för loggfilen finns. Skapar mappen om nödvändigt.
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
-def custom_rotating_file_handler(path, maxBytes=10485760, backupCount=5):
+def custom_rotating_file_handler(path, maxBytes=5242880, backupCount=5):
     # Skapar en anpassad RotatingFileHandler.
     # maxBytes: Maximal storlek för en loggfil i bytes, standard är 10MB.
     # backupCount: Antalet backup-filer att behålla, standard är 5.
