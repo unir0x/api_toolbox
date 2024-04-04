@@ -48,7 +48,7 @@ class CsvToXlsConverter(Resource):
 
             # Skapa en tabell med standardstilen 'TableStyleMedium9'
             if create_table:
-                generate_table(ws, 'TableStyleMedium9')  # Använder standardstil direkt
+                generate_table(ws, 'TableStyleMedium2')
                 
             wb.save(output)
             output.seek(0)
