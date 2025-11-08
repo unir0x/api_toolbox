@@ -24,8 +24,7 @@ class Settings(BaseModel):
     SESSION_TYPE: str = Field("redis", description="Session storage type. Should be 'redis'.")
     SESSION_PERMANENT: bool = Field(False, description="Whether sessions should be permanent.")
     MAX_UPLOAD_FILE_SIZE: int = Field(10 * 1024 * 1024, description="Maximum file upload size in bytes.")
-    GUNICORN_ACCESS_LOG: str = Field("logs/access.log", description="Path for Gunicorn access logs.")
-    GUNICORN_ERROR_LOG: str = Field("logs/error.log", description="Path for Gunicorn error logs.")
+
 
     # From environment variables
     SECRET_KEY: SecretStr = Field(..., description="A secret key for signing session data. Loaded from env.")
