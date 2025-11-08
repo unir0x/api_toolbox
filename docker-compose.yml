@@ -1,0 +1,44 @@
+version: '3.8'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  api_toolbox:
+    image: unirox/api-toolbox:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api_toolbox
+    ports:
+      - "8000:8000"
+    volumes:
+      # Synkronisera all källkod för live-reloading under utveckling
+      - .:/app
+      # Behåll befintliga mappningar för persistenta data
+      - ./logs:/app/logs
+      - ./config:/app/config
+    env_file:
+      - .env
+    environment:
+      - SETTINGS_PATH=/app/config/settings.json
+      - REDIS_HOST=redis-service # Added for Redis connection
+    restart: unless-stopped
+    networks:
+      - app-network
+    depends_on:
+      - redis-service
+
+  redis-service:
+    image: redis:7-alpine
+    container_name: redis_service
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+
+volumes:
+  redis-data:
+    driver: local

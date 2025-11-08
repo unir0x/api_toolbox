@@ -1,0 +1,45 @@
+# --- Secrets ---
+# Environment variables file
+.env
+
+# Generated settings file with secrets (API tokens, passwords)
+config/settings.json
+
+
+# --- Runtime Data ---
+# Log files
+logs/
+*.log
+
+# Flask session files
+flask_session/
+
+
+# --- Python ---
+# Bytecode and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+
+# --- IDE / Editor ---
+# Visual Studio Code
+.vscode/
+
+
+# --- Operating System ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

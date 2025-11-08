@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker-compose.portainer.yml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+venc/
+.venv/
+.pytest_cache/
+
+# Environment and local config
+.env
+config/settings.json
+
+# Local data, logs, and sessions
+data/
+logs/
+flask_session/
+
+# Documentation
+*.md
+
+# IDE/Editor files
+.vscode/
+.idea/
+
+# Utility scripts not needed in production
+hash_password.py
