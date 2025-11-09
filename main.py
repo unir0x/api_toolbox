@@ -8,8 +8,6 @@ from flask import Flask, session, send_from_directory, request
 from flask_restx import Api, Resource, Namespace, reqparse
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_session import Session
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 import redis
 
 # Import the new auth methods and the config object
@@ -35,14 +33,7 @@ app.config["SESSION_REDIS"] = redis.Redis(
 )
 Session(app)
 
-# --- Rate Limiting ---
-limiter = Limiter(
-    get_remote_address,
-    app=app,
-    default_limits=["200 per day", "50 per hour"],
-    storage_uri=f"redis://{Config.REDIS_HOST}:{Config.REDIS_PORT}/{Config.REDIS_DB}",
-    strategy="fixed-window",
-)
+
 
 # --- Logging Setup ---
 log_file_path = Config.LOG_FILE
