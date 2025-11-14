@@ -1,6 +1,6 @@
 # File Converter API
 
-**Version:** 2.1.9  
+**Version:** 2.1.10  
 **Maintainer:** FSV @ Salix Business Partner AB
 
 This project provides a secure and scalable API toolbox for various file conversion and utility tasks, managed via a simple web interface and a RESTful API. The application is containerized with Docker for easy deployment and scaling.

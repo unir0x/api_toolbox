@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.10 - 2025-11-14
+
+- Bumped gosu runtime helper to v1.19 in Docker image.
+- Version metadata updated for new release cycle.
+
 ## 2.1.9 - 2025-11-14
 
 - Added Postman collection (`postman/ApiToolbox.postman_collection.json`) with sample requests for health, Base64, CSV, and admin endpoints.

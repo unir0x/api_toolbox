@@ -18,7 +18,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install latest gosu for privilege dropping to mitigate Go CVEs
-ARG GOSU_VERSION=1.17
+ARG GOSU_VERSION=1.19
 RUN apt-get update && apt-get install -y --no-install-recommends curl && \
     dpkgArch="$(dpkg --print-architecture)" && \
     curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" && \
