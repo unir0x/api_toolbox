@@ -1,7 +1,9 @@
 import os
 import json
 import sys
+import shutil
 import logging
+from pathlib import Path
 from typing import List, Dict, Optional
 from pydantic import BaseModel, Field, SecretStr, ValidationError
 
@@ -34,14 +36,51 @@ class Settings(BaseModel):
 
 # --- Configuration Loading Logic ---
 
-# Define SETTINGS_PATH at the module level so it can be imported elsewhere
-SETTINGS_PATH = os.getenv("SETTINGS_PATH", "config/settings.json")
+# Resolve important paths once so other modules can import them.
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_SETTINGS_FILE = BASE_DIR / "config" / "settings.json"
+DEFAULT_TEMPLATE_FILE = BASE_DIR / "defaults" / "settings.template.json"
+
+# Allow overriding both settings and template path via environment variables
+SETTINGS_PATH = Path(os.getenv("SETTINGS_PATH", DEFAULT_SETTINGS_FILE))
+SETTINGS_TEMPLATE_PATH = Path(os.getenv("SETTINGS_TEMPLATE_PATH", DEFAULT_TEMPLATE_FILE))
+
+def ensure_settings_file():
+    """
+    Makes sure a usable settings.json exists.
+    If it is missing we bootstrap it from defaults/settings.template.json.
+    """
+    settings_path = SETTINGS_PATH
+    template_path = SETTINGS_TEMPLATE_PATH
+
+    try:
+        settings_path.parent.mkdir(parents=True, exist_ok=True)
+    except OSError as exc:
+        logging.error(f"CRITICAL: Could not create config directory '{settings_path.parent}'. Error: {exc}")
+        sys.exit(1)
+
+    if settings_path.exists():
+        return
+
+    if not template_path.exists():
+        logging.error(f"CRITICAL: Template file '{template_path}' is missing. Cannot bootstrap settings.")
+        sys.exit(1)
+
+    try:
+        shutil.copy(template_path, settings_path)
+        logging.info(f"Created missing settings file at '{settings_path}' from template '{template_path}'.")
+    except OSError as exc:
+        logging.error(f"CRITICAL: Failed to create settings file at '{settings_path}'. Error: {exc}")
+        sys.exit(1)
 
 def load_configuration() -> Settings:
     """
     Loads configuration from a JSON file and environment variables,
     validates it using the Pydantic model, and returns a Settings object.
     """
+    # Ensure settings.json exists (bootstrap from template if necessary)
+    ensure_settings_file()
+
     # 1. Load from JSON file
     try:
         with open(SETTINGS_PATH, 'r') as f:
@@ -71,4 +110,3 @@ def load_configuration() -> Settings:
 # --- Global Config Object ---
 # This object is imported by other parts of the application.
 Config = load_configuration()
-

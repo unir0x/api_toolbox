@@ -1,0 +1,243 @@
+{
+  "info": {
+    "_postman_id": "b7fdd5c6-171a-4d1c-a452-6b8a22fb71e8",
+    "name": "API Toolbox",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Example collection for the File Converter API. Configure an environment with {{base_url}}, {{api_token}}, and optional {{admin_auth_header}} (value: Basic base64(admin:password))."
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Status Ping (API Token)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-API-Token",
+            "value": "{{api_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/Status/ping",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "Status",
+            "ping"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Base64 Encode File",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Token",
+            "value": "{{api_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "bizDoc",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "filename",
+              "value": "",
+              "type": "text",
+              "description": "Optional override of the file name reported in the response"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/Base64/encode",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "Base64",
+            "encode"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Base64 Decode",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Token",
+            "value": "{{api_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "base64",
+              "value": "",
+              "type": "text",
+              "description": "Base64 encoded payload"
+            },
+            {
+              "key": "filename",
+              "value": "decoded.bin",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/Base64/decode",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "Base64",
+            "decode"
+          ]
+        }
+      }
+    },
+    {
+      "name": "CSV → XLSX (multi-file)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Token",
+            "value": "{{api_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "separator",
+              "value": "semicolon",
+              "type": "text"
+            },
+            {
+              "key": "create_table",
+              "value": "true",
+              "type": "text",
+              "description": "Accepted values: true / false"
+            },
+            {
+              "key": "table_style",
+              "value": "TableStyleMedium9",
+              "type": "text"
+            },
+            {
+              "key": "lang",
+              "value": "SV",
+              "type": "text"
+            },
+            {
+              "key": "author",
+              "value": "NorthXL.se",
+              "type": "text"
+            },
+            {
+              "key": "title",
+              "value": "Example export",
+              "type": "text"
+            },
+            {
+              "key": "sheet_name",
+              "value": "exempel_text1",
+              "type": "text",
+              "description": "Repeat for each custom sheet name (optional)"
+            },
+            {
+              "key": "sheet_name",
+              "value": "exempel_text2",
+              "type": "text",
+              "description": "Second sheet name"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": [],
+              "description": "First CSV file"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": [],
+              "description": "Second CSV file"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/csv2xls",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "csv2xls"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Admin - List Tokens",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{admin_auth_header}}",
+            "description": "Set to `Basic <base64(admin:password)>`"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/admin/api/tokens",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "admin",
+            "api",
+            "tokens"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "api_token",
+      "value": "replace-with-real-token"
+    },
+    {
+      "key": "admin_auth_header",
+      "value": "Basic YWRtaW46Y2hhbmdlX21l"
+    }
+  ]
+}

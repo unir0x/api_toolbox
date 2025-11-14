@@ -1,6 +1,6 @@
 # File Converter API
 
-**Version:** 2.1.0  
+**Version:** 2.1.9  
 **Maintainer:** FSV @ Salix Business Partner AB
 
 This project provides a secure and scalable API toolbox for various file conversion and utility tasks, managed via a simple web interface and a RESTful API. The application is containerized with Docker for easy deployment and scaling.
@@ -21,7 +21,8 @@ This project provides a secure and scalable API toolbox for various file convers
   - Securely change the admin password.
 - **Available API Services:**
   - **Base64:** Encode files to Base64 and decode Base64 strings back to files.
-  - **CSV to XLS:** Convert CSV files to formatted Excel (.xlsx) files.
+- **CSV to XLS:** Convert one or multiple CSV files to Excel (.xlsx) with selectable separators, optional tables, custom sheet names, and automatic per-sheet numbering.
+- **Postman Collection:** Import `postman/ApiToolbox.postman_collection.json` for ready-made requests covering the admin, Base64, and CSV services.
 - **Configuration & Logging:**
   - Centralized configuration via a `settings.json` file, created from a template on first run.
   - **Rotating Log Files:** Application logs are automatically rotated to prevent them from growing indefinitely (max 10MB per file, 5 backups).
@@ -108,3 +109,11 @@ These instructions are for running the application on a local machine for develo
     - **Admin Panel:** `http://localhost:8000/admin`
     - **Swagger UI:** `http://localhost:8000/swagger/`
     - The same first-time setup steps as in the Portainer deployment apply.
+
+### Postman Collection
+
+- A curated Postman collection lives in `postman/ApiToolbox.postman_collection.json`. Import it and configure an environment with:
+  - `base_url` (e.g., `http://localhost:8000`)
+  - `api_token` for API requests
+  - `admin_auth_header` (`Basic <base64(admin:password)>`) for the admin endpoints
+- The collection demonstrates health checks, Base64 tools, multi-file CSV⇢XLSX conversion, and admin token management.

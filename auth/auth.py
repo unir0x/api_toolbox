@@ -64,7 +64,7 @@ def verify_admin_password(username, password):
     Verify admin credentials for the web UI.
     """
     expected_password = Config.ADMIN_CREDENTIALS.get(username)
-    logging.debug(f"DEBUG: verify_admin_password - username: {username}, expected_password: {expected_password}")
+    logging.debug(f"DEBUG: verify_admin_password - username: {username}")
     
     if not expected_password:
         logging.warning(f"❌ Invalid admin login attempt for non-existent user: {username}")

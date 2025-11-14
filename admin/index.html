@@ -22,6 +22,7 @@
         #token-list .delete-btn:hover { background-color: #c82333; }
         .error { color: #dc3545; margin-bottom: 15px; }
         .success { color: #28a745; }
+        .warning { background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; }
         .message-box { padding: 15px; border-radius: 4px; margin-top: 15px; }
         .new-token { background-color: #d4edda; }
         details { border: 1px solid #ccc; border-radius: 4px; margin-top: 20px; }
@@ -48,6 +49,9 @@
         <div id="main-content" class="hidden">
             <h2>API Token Management</h2>
             <div id="api-error" class="error hidden"></div>
+            <div id="default-password-warning" class="warning hidden">
+                <strong>Security warning:</strong> Default admin password is still active. Change it under "Admin Password Management".
+            </div>
             
             <h3>Create New Token</h3>
             <form id="create-token-form">
@@ -92,6 +96,7 @@
         const changePasswordForm = document.getElementById('change-password-form');
         const passwordError = document.getElementById('password-error');
         const passwordSuccess = document.getElementById('password-success');
+        const defaultPasswordWarning = document.getElementById('default-password-warning');
 
         let credentials = null;
 
@@ -129,12 +134,28 @@
         function showError(element, message) { element.textContent = message; element.classList.remove('hidden'); }
         function showSuccess(element, message) { element.textContent = message; element.classList.remove('hidden'); }
         function hideMessage(element) { element.textContent = ''; element.classList.add('hidden'); }
+        function toggleDefaultPasswordWarning(isActive) {
+            if (!defaultPasswordWarning) return;
+            if (isActive) { defaultPasswordWarning.classList.remove('hidden'); }
+            else { defaultPasswordWarning.classList.add('hidden'); }
+        }
+        function normalizeTokenResponse(response) {
+            if (response && typeof response === 'object' && ('tokens' in response || 'default_password_active' in response)) {
+                return {
+                    tokens: response.tokens || {},
+                    defaultPasswordActive: !!response.default_password_active
+                };
+            }
+            return { tokens: response || {}, defaultPasswordActive: false };
+        }
 
         // --- Token Management ---
         async function loadTokens() {
             try {
                 hideMessage(apiError);
-                const tokens = await apiFetch('/admin/api/tokens');
+                const response = await apiFetch('/admin/api/tokens');
+                const { tokens, defaultPasswordActive } = normalizeTokenResponse(response);
+                toggleDefaultPasswordWarning(defaultPasswordActive);
                 tokenList.innerHTML = '';
                 if (Object.keys(tokens).length === 0) {
                     tokenList.innerHTML = '<li>No API tokens found.</li>';
@@ -201,6 +222,7 @@
                 const username = atob(credentials).split(':')[0];
                 credentials = btoa(`${username}:${new_password}`);
                 sessionStorage.setItem('api_toolbox_creds', credentials);
+                await loadTokens();
             } catch (error) { showError(passwordError, error.message); }
         }
 

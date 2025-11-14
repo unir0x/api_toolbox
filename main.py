@@ -114,6 +114,10 @@ def write_settings(new_data):
     with open(SETTINGS_PATH, 'w') as f:
         json.dump(new_data, f, indent=4)
 
+def is_default_admin_password_active():
+    """Returns True if any admin account still uses the default password."""
+    return any(password == "change_me" for password in Config.ADMIN_CREDENTIALS.values())
+
 @ns_admin.route('/tokens')
 @ns_admin.doc(False) # Hide from Swagger UI
 class AdminTokenManager(Resource):
@@ -121,9 +125,13 @@ class AdminTokenManager(Resource):
     def get(self):
         """[Admin] List all API tokens."""
         # Convert Pydantic objects to JSON-serializable dicts before returning
-        return {
+        tokens = {
             token_hash: token_data.model_dump()
             for token_hash, token_data in Config.API_TOKENS.items()
+        }
+        return {
+            'tokens': tokens,
+            'default_password_active': is_default_admin_password_active()
         }
 
     @admin_auth.login_required
@@ -237,4 +245,3 @@ if __name__ == '__main__':
         port=8000, 
         debug=os.getenv("DEBUG", "false").lower() == "true"
     )
-

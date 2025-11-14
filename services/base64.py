@@ -39,8 +39,9 @@ class Base64Encoder(Resource):
         
         filename = secure_filename(filename)
 
-        if file.content_length > Config.MAX_UPLOAD_FILE_SIZE:
-            logging.warning(f"File too large for encoding: {filename}. Size: {file.content_length} bytes.")
+        content_length = getattr(file, "content_length", None)
+        if content_length is not None and content_length > Config.MAX_UPLOAD_FILE_SIZE:
+            logging.warning(f"File too large for encoding: {filename}. Size: {content_length} bytes.")
             return {'message': f'File too large. Max size is {Config.MAX_UPLOAD_FILE_SIZE / (1024 * 1024)} MB'}, 413
 
         if not self.allowed_file(filename):
@@ -52,6 +53,9 @@ class Base64Encoder(Resource):
             if not file_content:
                 logging.warning(f"Empty file provided for encoding: {filename}.")
                 return {'message': 'File is empty'}, 400
+            if len(file_content) > Config.MAX_UPLOAD_FILE_SIZE:
+                logging.warning(f"File too large after read for encoding: {filename}. Size: {len(file_content)} bytes.")
+                return {'message': f'File too large. Max size is {Config.MAX_UPLOAD_FILE_SIZE / (1024 * 1024)} MB'}, 413
             encoded_content = base64.b64encode(file_content).decode('utf-8')
             logging.info(f"Successfully encoded file: {filename}.")
             return {
@@ -63,6 +67,8 @@ class Base64Encoder(Resource):
             return {'message': 'Error encoding file to Base64'}, 500
 
     def allowed_file(self, filename):
+        if '.' not in filename:
+            return False
         ext = filename.rsplit('.', 1)[-1].lower()
         return ext in Config.ALLOWED_EXTENSIONS
 
